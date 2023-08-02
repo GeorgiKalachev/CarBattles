@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        body {
+            background-image: url("bg.jpg");
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registration-form {
+            text-align: center;
+            width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+        }
+
+        .form-group {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            text-align: center;
+            display: block;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 80%;
+            text-align: center;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+<div class="registration-form">
+    <h2>Registration</h2>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="pictureUrl">Picture URL</label>
+            <input type="text" id="pictureUrl" name="pictureUrl">
+        </div>
+        <button type="submit" id="registerSubmitButton">Register</button>
+    </form>
+</div>
+
+<!-- Bootstrap Script  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<!-- Custom JavaScript Link -->
+<script charset="utf-8">
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const registrationForm = document.getElementById("registrationForm");
+        registrationForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Collect form data
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const pictureUrl = document.getElementById("pictureUrl").value;
+
+            // Create an object with the user data
+            const userData = {
+                name: name,
+                email: email,
+                password: password,
+                picture: pictureUrl,
+            };
+
+            // Send the data to the backend
+            fetch("http://localhost:5000/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            }).then((response) => response.json())
+
+                .then((data) => {
+                    // Handle the response from the backend if needed
+                    console.log("Registration successful!", data);
+
+                    // Set the "userId" cookie with the returned user ID
+                    document.cookie = `userId=${data.id}; path=/;`; // This sets the cooki
+                    // Redirect to the main page or show a success message
+                    window.location.href = "start.html";
+                })
+                .catch((error) => {
+                    console.error("Error during registration:", error);
+                    // Handle errors if needed
+                });
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Игра "Кой е по-бърз?"</title>
+    <style>
+        body {
+            background-image: url("bg.jpg");
+            background-repeat: repeat;
+        }
+
+        #textAboveImages {
+            text-align: center; /* Центриране на текста */
+            font-family: Verdana, sans-serif; /* Шрифт "Verdana" */
+            font-size: 22px; /* Големина на шрифта */
+            font-weight: bold; /* Болд стил на шрифта */
+            margin: 0; /* Задаване на маргината на 0 */
+            padding: 0; /* Задаване на padding на 0 */
+        }
+
+        .bet-option {
+            font-weight: bold; /* Добавете болд стил на шрифта */
+            font-family: Verdana, sans-serif; /* Задайте шрифта на "Verdana" */
+        }
+
+        #stats {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .invite-form {
+            text-align: center;
+            width: 400px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            margin-top: 20px; /* Add some top margin to separate from the top of the page */
+        }
+
+        /* Style for the "Invite Friends" button */
+        button#inviteFriendsButton {
+            background-color: #4CAF50; /* Green background color */
+            color: white; /* White text color */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Add some top margin to separate from the form */
+        }
+
+        /* Hover effect for the button */
+        button#inviteFriendsButton:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+        #imageBetween {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -175px;
+            margin-bottom: 110px;
+        }
+
+        #imageBetween img {
+            width: 80px;
+            height: 120px;
+        }
+
+        .container {
+            width: auto;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            background-color: white;
+            border: 1px solid lightgray;
+            padding-top: 10px;
+            border-radius: 0px;
+            width: 680px;
+
+        }
+
+        .img-container {
+            position: relative;
+            display: inline-block;
+            padding: 5px;
+            text-align: center;
+            cursor: pointer;
+            margin-right: 40px;
+            margin-left: 40px;
+            font-family: Verdana, sans-serif;
+            color: #555555;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .img-container img {
+            width: 250px;
+            height: 150px;
+            margin-bottom: 5px;
+
+        }
+
+        .img-container:hover {
+            box-shadow: 0px 0px 12px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .img-container::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            pointer-events: none;
+            transition: all 0.3s ease-in-out;
+
+        }
+
+        #questionCount {
+
+            font-size: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 0px;
+            color: lightgray;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+
+        }
+
+        #questionCount img {
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        #timer {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 0px;
+            color: lightgray;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+
+
+        }
+
+        #timer img {
+            height: 36px;
+            margin-right: 5px;
+        }
+
+        #score {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 0px;
+            color: green;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+        }
+
+        #score img {
+            height: 36px;
+            margin-right: 5px;
+        }
+
+        #money {
+            font-size: 30px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 10px;
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 0px;
+            color: lightblue;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+        }
+
+        #money img {
+            height: 60px;
+            margin-right: 5px;
+        }
+
+        #question {
+            font-size: 18px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        #question img {
+            height: 36px;
+            margin-right: 5px;
+        }
+
+        #wrongCount {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            width: 500px;
+            margin: 0 auto;
+            border-radius: 0px;
+            color: red;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+        }
+
+        #wrongCount img {
+            height: 36px;
+            margin-right: 5px;
+        }
+
+        #moneyEarned {
+            font-size: 30px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border-radius: 0px;
+            width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            color: green;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+
+        }
+
+        #moneyEarned img {
+            height: 60px;
+            margin-right: 5px;
+        }
+
+
+        #textArea {
+            padding: 10px;
+        }
+
+        #betOptions {
+            max-width: 500px;
+            margin-top: -28px;
+            margin-bottom: 10px;
+            font-size: 28px;
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            text-align: center;
+            z-index: 1;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px 20px white;
+            background-color: white;
+        }
+
+        #betOptions div {
+            width: 150px; /* Modified width */
+            height: 50px;
+            background-color: #f1f1f1;
+            position: relative; /* Add this line */
+        }
+
+        #betOptions div:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #60ff00; /* Add this line */
+            z-index: -1; /* Add this line */
+        }
+
+        #betOptions div:hover {
+
+            filter: brightness(85%); /* Променете стойността на затъмняването според вашите предпочитания */
+        }
+
+        #betOptions div input[type=radio] {
+            border-radius: 10px;
+            display: none;
+        }
+
+
+        .radio {
+
+            display: inline-flex;
+            align-items: center; /* Добавете align-items: center */
+            justify-content: center; /* Добавете justify-content: center */
+            width: 150px; /* Modified width */
+            height: 50px;
+            cursor: pointer;
+            border-radius: 10px;
+            color: #aeaeae;
+            font-size: 20px;
+            font-weight: bold;
+            font-family: Verdana, sans-serif;
+
+        }
+
+        /* Добавени стилове за замъгляване и зелена рамка */
+        .img-container.blur {
+            filter: blur(4px);
+        }
+
+        .img-container.selected {
+            outline: 3px solid green;
+        }
+
+        .options {
+            position: relative;
+            filter: blur(4px);
+
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="textAboveImages"><p>Which car will accelerate faster from 0-100 km/h?</p></div>
+    <div id="middleImage">
+    </div>
+    <div id="question"></div>
+    <div id="betOptions">
+        <div style="margin-bottom: 10px;">
+            <input type="radio" name="betOption" id="10%"/>
+            <label id="label10" class="radio bet-option" for="10%">$10</label>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <input type="radio" name="betOption" id="50%"/>
+            <label id="label50" class="radio bet-option" for="50%">$50</label>
+        </div>
+        <div>
+            <input type="radio" name="betOption" id="100%"/>
+            <label class="radio bet-option" for="100%">All IN</label>
+        </div>
+
+    </div>
+    <div id="options"></div>
+    <div id="imageBetween"></div>
+
+    <div id="questionCount"><img src="interrogative.png" alt="questionMark"></div>
+
+    <div id="stats">
+        <div id="score"><img src="star.png" alt="score">0</div>
+        <div id="wrongCount"><img src="wronganswer.png" alt="wrongAnswer">0</div>
+        <div id="timer"><img src="stopwatch.png" alt="timer">0</div>
+    </div>
+
+
+    <div id="money"><img src="dollar.png" alt="money"></div>
+    <div id="moneyEarned"><img src="gainmoney.png" alt="moneyEarned"></div>
+
+    <div id="result"></div>
+    <div id="textArea"></div>
+</div>
+<script>
+
+    var questionCount = 0; // Брояч на въпросите
+    var correctCount = 0; // Брояч на верните отговори
+    var timerInterval; // Променлива за интервала на таймера
+    var seconds = 0; // Брояч на изминалите секунди
+    var money = 100; // Начални пари
+    var betChoice; // Избор за залагане
+    var wrongCount = 0; // Брояч на грешните отговори
+    var moneyEarned = 0; // Пари, спечелени в играта
+    var isImageClicked = false; // Добавена променлива
+    var cars = [];
+    function startGame() {
+        fetch('http://localhost:5000/cars')
+            .then(response => response.json())
+            .then(carsData => {
+                // Now you have the cars list fetched from the backend
+                cars = carsData;
+                questionCount = 0;
+                correctCount = 0;
+                seconds = 0;
+                money = 100;
+                betChoice = null;
+                showNextQuestion();
+                startTimer();
+            })
+            .catch(error => console.error('Error fetching cars list:', error));
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function updateTimer() {
+        seconds++;
+        var timer = document.getElementById("timer");
+        timer.innerHTML = `<img src="stopwatch.png" alt="timer"> ${seconds} сек`;
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+    }
+
+    function showNextQuestion() {
+        if (questionCount >= 20) {
+            // Играта приключва след 20 въпроса
+            showResult();
+            return;
+        }
+
+        if (money <= 0) {
+            // Играта приключва, ако парите свършат
+            showResult();
+            return;
+        }
+
+        var question = document.getElementById("question");
+        var options = document.getElementById("options");
+
+        questionCount++;
+        document.getElementById(
+            "questionCount"
+        ).innerHTML = `<img src="interrogative.png" alt="questionMark"> ${questionCount} от 20`;
+
+        var tenPerc = money * 10 / 100;
+        var fiftyPerc = money * 50 / 100;
+
+        document.getElementById("label10").innerHTML = `$${tenPerc.toFixed(2)}`;
+        document.getElementById("label50").innerHTML = `$${fiftyPerc.toFixed(2)}`;
+        document.getElementById(
+            "money"
+        ).innerHTML = `<img src="dollar.png" alt="money"> $${money.toFixed(2)}`;
+
+        // Избиране на случаен автомобил за сравнение
+        var randomIndex = Math.floor(Math.random() * cars.length);
+        var car1 = cars[randomIndex];
+        var car2 = getDifferentCar(randomIndex);
+
+        // Създаване на снимките и добавяне на клик събитие
+        var img1 = createCarImage(car1, true);
+        var img2 = createCarImage(car2, false);
+
+        var imageBetween = document.getElementById("imageBetween");
+        imageBetween.innerHTML = "";
+        var image = document.createElement("img");
+        image.src = "vs.jpg"; // Заменете "path/to/your/image.jpg" с пътя към вашето изображение
+        image.width = 80;
+        image.height = 120;
+        imageBetween.appendChild(image);
+
+        img1.onclick = function () {
+            if (isImageClicked) return; // Проверка дали вече е бил кликнато върху друга снимка
+            isImageClicked = true; // Задаване на стойност true
+
+            img1.classList.add("selected");
+            img2.classList.remove("selected");
+            img1.classList.remove("blur"); // Премахване на замъгляването
+            img2.classList.add("blur"); // Замъгляване на второто изображение
+            showBetOptions(car1, car2);
+        };
+        img2.onclick = function () {
+            if (isImageClicked) return; // Проверка дали вече е бил кликнато върху друга снимка
+            isImageClicked = true; // Задаване на стойност true
+
+            img1.classList.remove("selected");
+            img2.classList.add("selected");
+            img1.classList.add("blur"); // Замъгляване на първото изображение
+            img2.classList.remove("blur"); // Премахване на замъгляването
+            showBetOptions(car2, car1);
+        };
+
+        // Показване на снимките върху екрана
+        options.innerHTML = "";
+        options.appendChild(img1);
+        options.appendChild(img2);
+    }
+
+    function createCarImage(car, isFirst) {
+        var imgContainer = document.createElement("div");
+        imgContainer.className = "img-container";
+
+        var img = document.createElement("img");
+        img.src = car.image;
+        img.alt = car.name;
+        img.id = isFirst ? "img1" : "img2"; // Добавяне на id
+
+        var caption = document.createElement("div");
+        caption.innerHTML = car.name;
+
+        imgContainer.appendChild(img);
+        imgContainer.appendChild(caption);
+
+        return imgContainer;
+    }
+
+    function getDifferentCar(index) {
+        var randomIndex = Math.floor(Math.random() * cars.length);
+        while (randomIndex === index) {
+            randomIndex = Math.floor(Math.random() * cars.length);
+        }
+        return cars[randomIndex];
+    }
+
+    function showBetOptions(selectedCar, otherCar) {
+        clearAllBets();
+        var betOptions = document.getElementById("betOptions");
+        betOptions.style.display = "block";
+
+        var choice10 = document.getElementById("10%");
+        var choice50 = document.getElementById("50%");
+        var choice100 = document.getElementById("100%");
+
+        choice10.onclick = function () {
+            betChoice = 0.1; // Задаване на избора на залога
+            checkAnswer(selectedCar, otherCar, betChoice);
+        };
+        choice50.onclick = function () {
+            betChoice = 0.5; // Задаване на избора на залога
+            checkAnswer(selectedCar, otherCar, betChoice);
+        };
+        choice100.onclick = function () {
+            betChoice = 1; // Задаване на избора на залога
+            checkAnswer(selectedCar, otherCar, betChoice);
+        };
+
+        var img1 = document.getElementById("img1");
+        var img2 = document.getElementById("img2");
+
+        img1.onclick = function () {
+            img1.classList.add("selected");
+            img2.classList.remove("selected");
+            img1.style.filter = "blur(0px)"; // Премахване на замъгляването
+            img2.style.filter = "blur(4px)"; // Замъгляване на второто изображение
+        };
+        img2.onclick = function () {
+            img1.classList.remove("selected");
+            img2.classList.add("selected");
+            img1.style.filter = "blur(4px)"; // Замъгляване на първото изображение
+            img2.style.filter = "blur(0px)"; // Премахване на замъгляването
+        };
+    }
+
+    function hideBetOptions() {
+        var betOptions = document.getElementById("betOptions");
+        betOptions.style.display = "none";
+    }
+
+    function checkAnswer(selectedCar, otherCar, betChoice) {
+        if (selectedCar && otherCar) {
+            if (betChoice) {
+                if (selectedCar.acceleration > otherCar.acceleration) {
+                    correctCount++;
+                    updateScore();
+                    addMoney();
+                } else {
+                    wrongCount++;
+                    removeMoney();
+                }
+
+                updateStats();
+                hideBetOptions();
+
+                // Create an object with the data to be sent to the backend
+                const questionData = {
+                    num: questionCount,
+                    id: parseInt(getCookie("quizId")), // Get the quizId from the cookie
+                    car1: selectedCar.name,
+                    car2: otherCar.name,
+                };
+
+                // Send the question data to the backend to save the question
+                fetch("http://localhost:5000/questions/save", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(questionData),
+                })
+                    .then((response) => {
+                        // Check if the response contains JSON data
+                        if (response.headers.get("content-type")?.includes("application/json")) {
+                            return response.json();
+                        } else {
+                            // If the response is not JSON, handle it as a plain text response
+                            return response.text().then((text) => {
+                                return { message: text };
+                            });
+                        }
+                    })
+                    .then((data) => {
+                        console.log("Response:", data);
+                        // Handle the response data here (if needed)
+                    })
+                    .catch((error) => {
+                        console.error("Error saving question:", error);
+                    });
+
+                showNextQuestion();
+            } else {
+                alert("Please choose a bet option!");
+            }
+        }
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift().trim();
+    }
+    function updateStats() {
+        var score = document.getElementById("score");
+        score.innerHTML = `<img src="star.png" alt="score">${correctCount}`;
+
+        var wrong = document.getElementById("wrongCount");
+        wrong.innerHTML = `<img src="wronganswer.png" alt="wrongAnswer"> ${wrongCount}`;
+
+        var moneyEarnedElem = document.getElementById("moneyEarned");
+        moneyEarnedElem.innerHTML = `<img src="gainmoney.png" alt="moneyEarned">$${moneyEarned.toFixed(2)}`;
+    }
+
+    function clearAllBets() {
+        var choice10 = document.getElementById("10%");
+        var choice50 = document.getElementById("50%");
+        var choice100 = document.getElementById("100%");
+
+        choice10.checked = false;
+        choice50.checked = false;
+        choice100.checked = false;
+
+        isImageClicked = false; // Задаване на стойност false
+    }
+
+    function addMoney() {
+        var betAmount = money * betChoice;
+        money += betAmount;
+        moneyEarned += betAmount;
+        return money;
+    }
+
+    function removeMoney() {
+        var betAmount = money * betChoice;
+        money -= betAmount;
+
+        return money;
+    }
+
+    function updateScore() {
+        var score = document.getElementById("score");
+        score.innerHTML = `<img src="star.png" alt="score">Точки: ${correctCount}`;
+    }
+
+    function showResult() {
+        stopTimer();
+        var container = document.getElementsByClassName("container")[0];
+        container.innerHTML = `<h1>Край на играта</h1><p>Твоите резултати: $${money.toFixed(
+            2
+        )} / ${seconds} секунди / ${correctCount} звезди`;
+
+        // Create an object with the data to be sent to the backend
+        const quizResultData = {
+            id: parseInt(getCookie("quizId")), // Get the quizId from the cookie
+            money: money,
+            seconds: seconds,
+            answers: correctCount,
+        };
+
+        // Send the quiz result data to the backend
+        fetch("http://localhost:5000/quiz/end", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(quizResultData),
+        })
+            .then((response) => {
+                // Check if the response contains JSON data
+                if (response.headers.get("content-type")?.includes("application/json")) {
+                    return response.json();
+                } else {
+                    // If the response is not JSON, handle it as a plain text response
+                    return response.text().then((text) => {
+                        return { message: text };
+                    });
+                }
+            })
+            .then((data) => {
+                console.log("Response:", data);
+                // Handle the response data here (if needed)
+            })
+            .catch((error) => {
+                console.error("Error sending quiz result:", error);
+            });
+        container.innerHTML += `<button id="inviteFriendsButton" class="button">Invite Friends</button>`;
+
+        // Attach event listener to the "Invite Friends" button
+        const inviteFriendsButton = document.getElementById("inviteFriendsButton");
+        inviteFriendsButton.addEventListener("click", () => {
+            // Redirect to the invitation page
+            window.location.href = "invite.html";
+        });
+    }
+
+    // Започване на играта при зареждане на страницата
+    window.onload = startGame;
+</script>
+</body>
+</html>  

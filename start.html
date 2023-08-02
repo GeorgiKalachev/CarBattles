@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Страница за стартиране на играта</title>
+  <style>
+    .container {
+      width: 500px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 200px;
+    }
+    button {
+      font-size: 28px;
+      padding: 15px 30px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <button onclick="startGame()">Старт</button>
+</div>
+
+<script>
+
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift().trim();
+  }
+
+  function startGame() {
+    // Get the user ID from the cookie
+    const userId = getCookie("userId");
+
+    // Check if the userId is valid (not null, empty, and a number)
+    if (userId === null || userId === "" || isNaN(parseInt(userId))) {
+      console.error("User ID is not valid");
+      return; // Exit the function if the user ID is not valid
+    }
+
+    fetch("http://localhost:5000/quiz/start", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId }), // Send the user ID with the key "userId"
+    })
+            .then((response) => {
+              // Handle the response here if needed
+              return response.json(); // Parse the response body as JSON
+            })
+            .then((data) => {
+              // Save the quiz ID to a cookie
+              document.cookie = `quizId=${data}`;
+              window.location.href = "game.html"; // Redirect after the fetch request is completed
+            })
+            .catch((error) => {
+              // Handle any errors that occurred during the request
+            });
+  }
+</script>
+</body>
+</html>

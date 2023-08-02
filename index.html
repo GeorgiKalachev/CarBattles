@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp</title>
+  <!-- link of emojipedia -->
+  <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/samsung/312/locked_1f512.png">
+  <!-- fontawesome icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Bootstrap link -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- Custom Style Sheet -->
+
+  <!-- clientiD  -->
+  <meta name="google-signin-scope" content="profile email">
+  <meta name="google-signin-client_id" content="406000937657-1aog87hpas6p1hvbn4b3gqe273q7qi8i.apps.googleusercontent.com">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+  <style>
+    body {
+      background-image: url("bg.jpg");
+      background-repeat: repeat;
+    }
+
+    button {
+      font-size: 28px;
+      padding: 15px 30px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .social-buttons {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .google,
+    .facebook {
+      display: flex;
+      flex-direction: row;
+      margin: 10px;
+      padding: 10px 0px;
+    }
+
+    .google button,
+    .facebook button {
+      padding: 12px;
+      font-size: 25px;
+      font-weight: 500;
+      margin: 0;
+      width: 300px;
+    }
+
+    .account {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+
+    .account .register,
+    .account .signin {
+      font-size: 24px;
+      font-weight: 500;
+      margin: 10px;
+    }
+
+    .register button,
+    .signin button {
+      font-size: 17px;
+      background: #18f583;
+      background-image: -webkit-linear-gradient(#18f583, #004d4d);
+      background-image: -o-linear-gradient(#18f583, #004d4d);
+      background-image: linear-gradient(#004d4d, #43ad71, #18f583);
+      -webkit-border-radius: 8px; /* Add 'px' after 8 */
+      -moz-border-radius: 8px; /* Add 'px' after 8 */
+      border-radius: 8px;
+      font-family: Arial;
+      color: white;
+      font-size: 16px;
+      font-weight: 550;
+      padding: 5px 20px 5px 20px;
+      text-decoration: none;
+      width: 180px;
+    }
+
+    .register button:hover,
+    .signin button:hover {
+      background: #18f583;
+      background-image: -webkit-linear-gradient(#004d4d, #43ad71);
+      background-image: -o-linear-gradient(#004d4d, #43ad71);
+      background-image: linear-gradient(#004d4d, #43ad71);
+      text-decoration: none;
+    }
+    /* facebook data user  */
+    #fimage , #gimage{
+      width: 11em;
+      height: 11em;
+      position: relative;
+      border-radius: 50%;
+      padding: 0 0;
+      margin: auto;
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      text-align: left;
+      background-position:  center center;
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+    }
+    #fimage #fimg , #gimage #gimg{
+      height: 11em;
+      width: 11em;
+      object-fit: cover;
+      position: absolute;
+      border-radius: 50%;
+      padding: 0 0;
+      margin: 0 0;
+      background-position:  center center;
+      z-index: 3;
+    }
+    #fname , #fmail , #gname , #gmail{
+      color : white;
+      font-size: 20px;
+    }
+
+    .btn-lg {
+      font-size: 17px;
+      background: #dbd3d3;
+      color: white;
+      font-weight: 550;
+      padding: 5px 20px 5px 20px;
+      text-decoration: none;
+      width: 180px;
+      margin-top: 100px;
+
+    }
+    .btn-lg:hover{
+      background-color : #ec5b5b;
+    }
+    #logout a , #signout a{
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+      width: 50px; /* Reduce the width to make them smaller */
+      margin-top: 150px;
+
+    }
+    /* Google data user */
+    #my-signin2 {
+      height: fit-content;
+      width: fit-content;
+      position: relative;
+      padding: 0.5em 0.5em;
+      margin: auto;
+      background-position:  center center;
+      z-index: 3;
+    }
+    /* Adding Some Animation */
+    .google, .facebook, .account {
+      animation-name: floating;
+      animation-duration: 1.5s;
+      animation-timing-function: ease-in-out;
+    }
+
+    @keyframes floating {
+
+      from {
+        margin-left: 100%;
+        width: 300%;
+      }
+
+      to {
+        margin-left: 0%;
+        width: 100%;
+      }
+    }
+
+    @keyframes fadeInAnimation {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @media screen and (min-width: 10px) and (max-width: 700px) {
+
+      /*   body {
+              background-color: blue;
+            } */
+      .social-buttons {
+        right: -8%;
+      }
+      .btn-lg{
+        width: 280px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<!-- Social Icon Container -->
+<div class="social-buttons" id="socialButtons">
+  <div class="google" id="google">
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark" data-width="400" data-height="45" data-longtitle="true"></div>
+  </div>
+  <div id="GoogleDetails">
+    <div id="gimage"><img id="gimg" src=""></div>
+    <div id="gname">Name</div> <br>
+    <div id="gmail">Mail</div><br><br>
+    <button id="googleStartGameButton" class="button">Start Game</button> <br>
+    <button id='signout' class="btn btn-lg btn-dark"><a href="#" onclick="signOut()">Sign Out</a></button>
+
+  </div>
+  <div class="facebook" id="facebook">
+    <div class="fb-login-button" data-width="500" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
+  </div> <br>
+  <div id="facebookDetails">
+    <div id="fimage"><img id="fimg" src=""></div>
+    <div id="fname">Name</div> <br>
+    <div id="fmail">Mail</div> <br> <br>
+    <button id="facebookStartGameButton" class="button">Start Game</button> <br>
+    <button id="logout" class="btn btn-lg btn-dark"><a href="#" onclick="logout();">Log Out</a></button>
+  </div>
+  <div class="account" id="account">
+    <div class="register">
+      <button id="registerButton" onclick="redirectToRegistrationPage()">Register</button>
+    </div>
+    <div class="signin">
+      <button type="button" name="signin">Sign In</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Bootstrap Script  -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<!-- Facebook Api -->
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v11.0" nonce="ypyne179"></script>
+<!-- Google Api -->
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<!-- Custom JavaScript Link -->
+<script src="index.js" charset="utf-8"></script>
+
+<script>
+  function redirectToRegistrationPage() {
+    window.location.href = "register.html";
+  }
+</script>
+</body>
+
+</html>
