@@ -20,8 +20,7 @@ Car Battles is an exciting and competitive web-based game that challenges player
 - **Responsive Design**: CSS media queries and flexible layouts ensure that the app adapts seamlessly to different devices and screen sizes.
 
 
-## Backend Repository:
-Car Battles requires a backend API to store user data, quiz progress, and car information. For the backend source code and API documentation, please visit the [Car Battles Backend Repository](https://github.com/GeorgiKalachev/CarBattles-BackEnd.git).
+
 
 
 ## About:
